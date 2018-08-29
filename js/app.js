@@ -10,20 +10,8 @@ var Enemy = function(x, y, speed) {
     this.x = x;
     this.y = y;
     this.speed = speed;
-
-    // To make bug move, it just need to change its x-cordinates or columns number
-    // it needs to remember every enengy's state of which column# it is in
-    // So that it can move the column in each render loop
-    // Make the starting Column a random number between 0-5 so that each enemy can appear
-    // Moving in different speed/pace.
-
-    //Load all the bug
-
-    // Resources.load([this.sprite]);
 };
 
-let positionX = 0;
-    positionY = 0;
 // Update the enemy's position, required method for game
 // Parameter: dt, a time delta between ticks
 Enemy.prototype.update = function(dt) {
@@ -38,7 +26,9 @@ Enemy.prototype.update = function(dt) {
       this.y = Math.floor(Math.random() * 3 + 1);
     }
 
-    if ((player.x === this.x) && (player.y === this.y)) {
+    // Handle collision. When player encounters a enemy
+    // Player return to the original location
+    if ((player.x === Math.floor(this.x)) && (player.y === this.y)) {
       player.x = 2;
       player.y = 5;
     }
@@ -51,9 +41,6 @@ Enemy.prototype.render = function() {
       ctx.drawImage(Resources.get(this.sprite), this.x * 101, this.y * 83);
 };
 
-// function checkCollisions () {
-
-// }
 
 // Now write your own player class
 // This class requires an update(), render() and
@@ -71,16 +58,7 @@ Player.prototype.update = function() {
     this.x = 2;
     this.y = 5;
   }
-  /*let ex = 0;
-      ey = 0;
-  for (var enemy in allEnemies) {
-    ex = allEnemies.x;
-    ey = allEnemies.y;
-    if ((this.x == ex) && (this.y == ey)) {
-      gameOver = true;
-    }
-  }*/
-  // console.log(gameOver);
+
 };
 
 Player.prototype.render = function() {
@@ -108,9 +86,9 @@ Player.prototype.handleInput = function(key) {
 // Now instantiate your objects.
 // Place all enemy objects in an array called allEnemies
 // Place the player object in a variable called player
-var enemy1 = new Enemy(0, 1, 5);
+var enemy1 = new Enemy(0, 1, 3);
 var enemy2 = new Enemy(0, 2, 2);
-var enemy3 = new Enemy(0, 3, 3);
+var enemy3 = new Enemy(0, 3, 4);
 var allEnemies = [enemy1, enemy2, enemy3];
 var player = new Player();
 var gameOver = false;
