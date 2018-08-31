@@ -26,21 +26,34 @@ Enemy.prototype.update = function(dt) {
       this.y = Math.floor(Math.random() * 3 + 1);
     }
 
+    // console.log("player: " + player.x + " " + player.y);
+    // console.log("enemy: " + this.x + " " + this.y);
+
     // Handle collision. When player encounters a enemy
     // Player return to the original location
-    if ((player.x === Math.floor(this.x)) && (player.y === this.y)) {
+    if (player.x * 101 < this.x * 101 + 80 &&
+      player.x * 101 + 80 > this.x * 101 &&
+      player.y * 83 < this.y * 83 + 83 &&
+      player.y * 83 + 83 > this.y * 83) {
       player.x = 2;
       player.y = 5;
     }
+
+    // if ((player.x === Math.ceil(this.x)) && (player.y === this.y)) {
+      // player.x = 2;
+      // player.y = 5;
+    // }
+
 };
 
 // Draw the enemy on the screen, required method for game
 Enemy.prototype.render = function() {
 
-    //Check the current column then, move it
-      ctx.drawImage(Resources.get(this.sprite), this.x * 101, this.y * 83);
-};
 
+    //Check the current column then, move it
+      ctx.drawImage(Resources.get(this.sprite), this.x * 101, (this.y * 83 - 20));
+      // loadText();
+};
 
 // Now write your own player class
 // This class requires an update(), render() and
@@ -50,6 +63,7 @@ var Player = function() {
     this.sprite = 'images/char-pink-girl.png';
     this.x = 2;
     this.y = 5;
+    this.win = 0;
 };
 
 Player.prototype.update = function() {
@@ -57,15 +71,24 @@ Player.prototype.update = function() {
   if (this.y === 0) {
     this.x = 2;
     this.y = 5;
+    this.win++;
   }
 
 };
 
 Player.prototype.render = function() {
 
-    ctx.drawImage(Resources.get(this.sprite), this.x * 101, this.y * 83);
+    ctx.drawImage(Resources.get(this.sprite), this.x * 101, (this.y * 83 - 20));
+    this.loadText();
 
 };
+
+Player.prototype.loadText = function() {
+
+  ctx.font = "20pt sans-serif";
+  ctx.fillText("Times of winning: " + this.win, 10, 40);
+}
+
 
 Player.prototype.handleInput = function(key) {
   console.log(key);
@@ -88,10 +111,10 @@ Player.prototype.handleInput = function(key) {
 // Place the player object in a variable called player
 var enemy1 = new Enemy(0, 1, 3);
 var enemy2 = new Enemy(0, 2, 2);
-var enemy3 = new Enemy(0, 3, 4);
+var enemy3 = new Enemy(0, 3, 1);
 var allEnemies = [enemy1, enemy2, enemy3];
 var player = new Player();
-var gameOver = false;
+
 
 
 // This listens for key presses and sends the keys to your

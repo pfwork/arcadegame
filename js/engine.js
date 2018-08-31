@@ -137,6 +137,7 @@ var Engine = (function(global) {
                  * we're using them over and over.
                  */
                 ctx.drawImage(Resources.get(rowImages[row]), col * 101, row * 83);
+                console.log(col * 101 + " " + row * 83);
             }
         }
 
