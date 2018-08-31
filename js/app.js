@@ -38,12 +38,6 @@ Enemy.prototype.update = function(dt) {
       player.x = 2;
       player.y = 5;
     }
-
-    // if ((player.x === Math.ceil(this.x)) && (player.y === this.y)) {
-      // player.x = 2;
-      // player.y = 5;
-    // }
-
 };
 
 // Draw the enemy on the screen, required method for game
@@ -83,10 +77,11 @@ Player.prototype.render = function() {
 
 };
 
+// Show a score count on the top of the game board
 Player.prototype.loadText = function() {
 
-  ctx.font = "20pt sans-serif";
-  ctx.fillText("Times of winning: " + this.win, 10, 40);
+  ctx.font = "bold 30pt serif";
+  ctx.fillText("SCORE: " + this.win, 303, 40);
 }
 
 
@@ -109,11 +104,11 @@ Player.prototype.handleInput = function(key) {
 // Now instantiate your objects.
 // Place all enemy objects in an array called allEnemies
 // Place the player object in a variable called player
-var enemy1 = new Enemy(0, 1, 3);
-var enemy2 = new Enemy(0, 2, 2);
-var enemy3 = new Enemy(0, 3, 1);
-var allEnemies = [enemy1, enemy2, enemy3];
-var player = new Player();
+let enemy1 = new Enemy(0, 1, 3);
+let enemy2 = new Enemy(0, 2, 2);
+let enemy3 = new Enemy(0, 3, 1);
+let allEnemies = [enemy1, enemy2, enemy3];
+let player = new Player();
 
 
 
